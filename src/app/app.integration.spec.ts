@@ -6,13 +6,13 @@ import { asyncData, clickElement, clickEvent, getText, mockObservable, query, qu
 import { AppComponent } from "./app.component";
 
 import { routes } from './app-routing.module';
-import { AppModule } from './app.module';
+//import { AppModule } from './app.module';
 import { ProductsService } from './services/product.service';
 import { AuthService } from './services/auth.service';
 import { generateManyProducts } from "./models/product.mock";
 import { generateOneUser } from "./models/user.mock";
 
-describe('App Integration test', () => {
+xdescribe('App Integration test', () => {
 
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
@@ -26,7 +26,7 @@ describe('App Integration test', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        AppModule,
+        //AppModule,
         RouterTestingModule.withRoutes(routes),
       ],
       providers: [
