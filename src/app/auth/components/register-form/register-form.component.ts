@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { MyValidators } from './../../../utils/validators';
@@ -15,7 +15,7 @@ import { UsersService } from './../../../services/user.service';
     imports: [ReactiveFormsModule],
 })
 export class RegisterFormComponent {
-  form = this.fb.group(
+  form = this.fb.nonNullable.group(
     {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email], [MyValidators.validateEmailAsync(this.usersService)]],
@@ -30,7 +30,7 @@ export class RegisterFormComponent {
   status: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private usersService: UsersService,
     private router: Router
   ) {}
@@ -39,8 +39,10 @@ export class RegisterFormComponent {
     event.preventDefault();
     if (this.form.valid) {
       this.status = 'loading';
-      const value = this.form.value;
-      this.usersService.create(value)
+      this.usersService.create({
+        ...this.form.getRawValue(),
+        role: 'customer'
+      })
       .subscribe({
         next: (rta) => {
           // redirect
