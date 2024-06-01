@@ -5,7 +5,9 @@ import { PeopleComponent } from './components/people/people.component';
 import { PicoPreviewComponent } from './components/pico-preview/pico-preview.component';
 import { OthersComponent } from './components/others/others.component';
 
-const routes: Routes = [
+import { AuthGuard } from './guards/auth.guard';
+
+export const routes: Routes = [
   {
     path: 'pico-preview',
     component: PicoPreviewComponent
@@ -16,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'others',
+    canActivate: [ AuthGuard ],
     component: OthersComponent
   },
   {

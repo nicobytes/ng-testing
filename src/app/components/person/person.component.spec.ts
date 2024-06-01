@@ -14,8 +14,8 @@ describe('PersonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TestHostComponent, PersonComponent ]
-    })
+    imports: [TestHostComponent, PersonComponent]
+})
     .compileComponents();
   });
 
@@ -124,10 +124,11 @@ describe('PersonComponent', () => {
 });
 
 @Component({
-  template: `
+    template: `
     <app-person
       [person]="person" (selected)="onSelected($event)">
-    </app-person>`
+    </app-person>`,
+    standalone: true
 })
 class TestHostComponent {
   person: Person = new Person('Nicolas', 'Molina', 28, 68, 1.65);;
@@ -144,8 +145,8 @@ describe('PersonComponent from HostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TestHostComponent, PersonComponent ]
-    })
+    imports: [TestHostComponent, PersonComponent]
+})
     .compileComponents();
   });
 

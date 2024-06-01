@@ -3,11 +3,19 @@
   <button data-testid="btn-promise" (click)="callPromise()">Call promise</button>
   <p data-testid="rta">{{ rta }}</p>
   <div class="my-grid">
-    <app-product [product]="product" *ngFor="let product of products"></app-product>
+    @for (product of products; track product) {
+      <app-product [product]="product"></app-product>
+    }
   </div>
   <button [disabled]="status === 'loading'" (click)="getAllProducts()">
-    <span *ngIf="status === 'init' || status === 'success'">Load more</span>
-    <span *ngIf="status === 'loading'">Loading</span>
-    <span *ngIf="status === 'error'">Error</span>
+    @if (status === 'init' || status === 'success') {
+      <span>Load more</span>
+    }
+    @if (status === 'loading') {
+      <span>Loading</span>
+    }
+    @if (status === 'error') {
+      <span>Error</span>
+    }
   </button>
 </section>

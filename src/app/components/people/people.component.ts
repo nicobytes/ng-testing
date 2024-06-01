@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Person } from './../../models/person';
+import { PersonComponent } from '../person/person.component';
+
 
 @Component({
-  selector: 'app-people',
-  templateUrl: './people.component.html',
-  styleUrls: ['./people.component.scss']
+    selector: 'app-people',
+    templateUrl: './people.component.html',
+    styleUrls: ['./people.component.scss'],
+    standalone: true,
+    imports: [PersonComponent]
 })
 export class PeopleComponent  {
 

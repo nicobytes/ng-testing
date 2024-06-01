@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MyValidators } from './validators';
 import { UsersService } from './../services/user.service';
 import { mockObservable } from 'src/testing';
@@ -9,7 +9,7 @@ describe('Tests for MyValidators',() => {
 
     it('should return null when password is right', () => {
       // Arrange
-      const control = new FormControl();
+      const control = new UntypedFormControl();
       control.setValue('nicolas123');
       //Act
       const rta = MyValidators.validPassword(control);
@@ -19,7 +19,7 @@ describe('Tests for MyValidators',() => {
 
     it('should return null when password is wrong', () => {
       // Arrange
-      const control = new FormControl();
+      const control = new UntypedFormControl();
       control.setValue('aaabbbcc');
       //Act
       const rta = MyValidators.validPassword(control);
@@ -31,9 +31,9 @@ describe('Tests for MyValidators',() => {
   describe('Test for matchPasswords', () => {
 
     it('should return null', () => {
-      const group = new FormGroup({
-        password: new FormControl('123456'),
-        confirmPassword: new FormControl('123456')
+      const group = new UntypedFormGroup({
+        password: new UntypedFormControl('123456'),
+        confirmPassword: new UntypedFormControl('123456')
       });
       //Act
       const rta = MyValidators.matchPasswords(group);
@@ -42,9 +42,9 @@ describe('Tests for MyValidators',() => {
     });
 
     it('should return obj with the error', () => {
-      const group = new FormGroup({
-        password: new FormControl('12345612'),
-        confirmPassword: new FormControl('1234564545')
+      const group = new UntypedFormGroup({
+        password: new UntypedFormControl('12345612'),
+        confirmPassword: new UntypedFormControl('1234564545')
       });
       //Act
       const rta = MyValidators.matchPasswords(group);
@@ -53,9 +53,9 @@ describe('Tests for MyValidators',() => {
     });
 
     it('should return obj with the error', () => {
-      const group = new FormGroup({
-        otro: new FormControl('12345612'),
-        otro2: new FormControl('1234564545')
+      const group = new UntypedFormGroup({
+        otro: new UntypedFormControl('12345612'),
+        otro2: new UntypedFormControl('1234564545')
       });
       const fn = () => {
         MyValidators.matchPasswords(group);
@@ -71,7 +71,7 @@ describe('Tests for MyValidators',() => {
     it('should return null with valid email', (doneFn) => {
       // Arrange
       const userService: jasmine.SpyObj<UsersService> = jasmine.createSpyObj('UsersService', ['isAvailableByEmail']);
-      const control = new FormControl('nico@mail.com');
+      const control = new UntypedFormControl('nico@mail.com');
       // Act
       userService.isAvailableByEmail.and.returnValue(mockObservable({isAvailable: true}));
       const validator = MyValidators.validateEmailAsync(userService);

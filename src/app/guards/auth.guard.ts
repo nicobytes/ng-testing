@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,7 +10,7 @@ import { AuthService } from './../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard  {
 
   constructor(
     private tokenService: TokenService,
@@ -20,18 +20,20 @@ export class AuthGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot): Observable<boolean> {
     // const token = this.tokenService.getToken();
     // if (!token) {
     //   this.router.navigate(['/home']);
     //   return false;
     // }
     // return true;
-    return this.authService.user$
+    // route.paramMap.get('idProduct');
+    // route.paramMap.has('idProduct');
+    return this.authService.getUser()
     .pipe(
       map(user => {
         if(!user) {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
           return false;
         }
         return true;

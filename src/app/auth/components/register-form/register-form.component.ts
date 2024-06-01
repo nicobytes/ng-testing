@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { MyValidators } from './../../../utils/validators';
 
 import { UsersService } from './../../../services/user.service';
 
+
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss'],
+    selector: 'app-register-form',
+    templateUrl: './register-form.component.html',
+    styleUrls: ['./register-form.component.scss'],
+    standalone: true,
+    imports: [ReactiveFormsModule],
 })
 export class RegisterFormComponent {
-  form = this.fb.group(
+  form = this.fb.nonNullable.group(
     {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email], [MyValidators.validateEmailAsync(this.usersService)]],
@@ -27,20 +31,24 @@ export class RegisterFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router
   ) {}
 
   register(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
       this.status = 'loading';
-      const value = this.form.value;
-      this.usersService.create(value)
+      this.usersService.create({
+        ...this.form.getRawValue(),
+        role: 'customer'
+      })
       .subscribe({
         next: (rta) => {
           // redirect
           // alert
           this.status = 'success';
+          this.router.navigateByUrl('/login');
         },
         error: (error) => {
           // redict
