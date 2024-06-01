@@ -1,6 +1,6 @@
 import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
-import { Router, RouterLinkWithHref } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { asyncData, clickElement, clickEvent, getText, mockObservable, query, queryAllByDirective } from "src/testing";
 import { AppComponent } from "./app.component";
@@ -57,7 +57,7 @@ describe('App Integration test', () => {
   });
 
   it('should there are 7 routerLinks', () => {
-    const links = queryAllByDirective(fixture, RouterLinkWithHref);
+    const links = queryAllByDirective(fixture, RouterLink);
     expect(links.length).toEqual(7);
   });
 
