@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 
 @Directive({
-  selector: '[appHighlight]',
+    selector: '[appHighlight]',
+    standalone: true,
 })
 export class HighlightDirective implements OnChanges {
   defaultColor = 'gray';

@@ -18,29 +18,27 @@ import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PicoPreviewComponent,
-    PersonComponent,
-    PersonsComponent,
-    PeopleComponent,
-    OthersComponent,
-    BannerComponent,
-    FooterComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    SharedModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SharedModule,
+        PicoPreviewComponent,
+        PersonComponent,
+        PersonsComponent,
+        PeopleComponent,
+        OthersComponent,
+        BannerComponent,
+        FooterComponent
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

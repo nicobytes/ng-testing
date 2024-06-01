@@ -7,16 +7,14 @@ import { ReversePipe } from './pipes/reverse.pipe';
 
 
 @NgModule({
-  declarations: [
-    HighlightDirective,
-    ReversePipe
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    HighlightDirective,
-    ReversePipe
-  ]
+    imports: [
+        CommonModule,
+        HighlightDirective,
+        ReversePipe
+    ],
+    exports: [
+        HighlightDirective,
+        ReversePipe
+    ]
 })
 export class SharedModule { }

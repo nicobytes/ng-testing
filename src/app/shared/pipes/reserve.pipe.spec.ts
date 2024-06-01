@@ -28,11 +28,13 @@ describe('ReversePipe', () => {
 
 
 @Component({
-  template: `
+    template: `
     <h5 data-testid="title">{{ 'amor' | reverse }}</h5>
     <input data-testid="input" [(ngModel)]="text">
     <p data-testid="text">{{ text | reverse }}</p>
-  `
+  `,
+    standalone: true,
+    imports: [FormsModule]
 })
 class HostComponent {
   text = '';
@@ -45,9 +47,8 @@ describe('ReversePipe from HostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HostComponent, ReversePipe ],
-      imports: [ FormsModule ]
-    })
+    imports: [FormsModule, HostComponent, ReversePipe]
+})
     .compileComponents();
   });
 

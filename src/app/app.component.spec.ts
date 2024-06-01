@@ -6,13 +6,17 @@ import { queryAllByDirective, RouterLinkDirectiveStub } from './../testing';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 
 @Component({
-  selector: 'app-banner'
+    selector: 'app-banner',
+    standalone: true,
+    imports: [RouterTestingModule]
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 class BannerComponentStub {}
 
 @Component({
-  selector: 'app-footer'
+    selector: 'app-footer',
+    standalone: true,
+    imports: [RouterTestingModule]
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 class FooterComponentStub {}
@@ -23,17 +27,14 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent,
+    imports: [
+        RouterTestingModule,
         BannerComponentStub,
-        FooterComponentStub,
-        RouterLinkDirectiveStub
-      ],
-      // schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+        FooterComponentStub
+    ],
+    declarations: [AppComponent,
+        RouterLinkDirectiveStub],
+}).compileComponents();
   });
 
   beforeEach(() => {

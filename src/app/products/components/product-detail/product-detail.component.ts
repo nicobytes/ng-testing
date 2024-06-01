@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, NgIf, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
@@ -7,9 +7,11 @@ import { Product } from '../../../models/product.model'
 import { ProductsService } from '../../../services/product.service';
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+    selector: 'app-product-detail',
+    templateUrl: './product-detail.component.html',
+    styleUrls: ['./product-detail.component.scss'],
+    standalone: true,
+    imports: [NgIf, CurrencyPipe]
 })
 export class ProductDetailComponent implements OnInit {
 

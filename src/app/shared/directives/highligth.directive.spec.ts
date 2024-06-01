@@ -8,13 +8,15 @@ import { queryAllByDirective, queryAll } from '../../../testing';
 import { HighlightDirective } from './highlight.directive';
 
 @Component({
-  template: `
+    template: `
     <h5 class="title" appHighlight>default</h5>
     <h5 appHighlight="yellow">yellow</h5>
     <p appHighlight="blue">parrafo</p>
     <p>otro parrafo</p>
     <input [(ngModel)]="color" [appHighlight]="color">
-  `
+  `,
+    standalone: true,
+    imports: [FormsModule]
 })
 class HostComponent {
   color = 'pink';
@@ -27,9 +29,8 @@ xdescribe('HighlightDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HostComponent, HighlightDirective ],
-      imports: [ FormsModule ]
-    })
+    imports: [FormsModule, HostComponent, HighlightDirective]
+})
     .compileComponents();
   });
 
