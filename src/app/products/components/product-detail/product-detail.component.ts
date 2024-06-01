@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location, NgIf, CurrencyPipe } from '@angular/common';
+import { Location, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { ProductsService } from '../../../services/product.service';
     templateUrl: './product-detail.component.html',
     styleUrls: ['./product-detail.component.scss'],
     standalone: true,
-    imports: [NgIf, CurrencyPipe]
+    imports: [CurrencyPipe]
 })
 export class ProductDetailComponent implements OnInit {
 

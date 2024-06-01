@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { MyValidators } from './../../../utils/validators';
 
 import { UsersService } from './../../../services/user.service';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-register-form',
     templateUrl: './register-form.component.html',
     styleUrls: ['./register-form.component.scss'],
     standalone: true,
-    imports: [ReactiveFormsModule, NgIf],
+    imports: [ReactiveFormsModule],
 })
 export class RegisterFormComponent {
   form = this.fb.group(

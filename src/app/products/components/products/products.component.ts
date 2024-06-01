@@ -4,14 +4,14 @@ import { Product } from '../../../models/product.model';
 import { ProductsService } from './../../../services/product.service';
 import { ValueService } from './../../../services/value.service';
 import { ProductComponent } from '../product/product.component';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-products',
     templateUrl: './products.component.html',
     styleUrls: ['./products.component.scss'],
     standalone: true,
-    imports: [NgFor, ProductComponent, NgIf]
+    imports: [ProductComponent]
 })
 export class ProductsComponent implements OnInit {
 
