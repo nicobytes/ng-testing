@@ -30,10 +30,10 @@ describe('AppComponent', () => {
     imports: [
         RouterTestingModule,
         BannerComponentStub,
-        FooterComponentStub
+        FooterComponentStub,
+        AppComponent
     ],
-    declarations: [AppComponent,
-        RouterLinkDirectiveStub],
+    declarations: [RouterLinkDirectiveStub],
 }).compileComponents();
   });
 
