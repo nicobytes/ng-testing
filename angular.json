@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "curso-angular-unit-testing-forms-routing:build:production"
+              "buildTarget": "curso-angular-unit-testing-forms-routing:build:production"
             },
             "development": {
-              "browserTarget": "curso-angular-unit-testing-forms-routing:build:development"
+              "buildTarget": "curso-angular-unit-testing-forms-routing:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "curso-angular-unit-testing-forms-routing:build"
+            "buildTarget": "curso-angular-unit-testing-forms-routing:build"
           }
         },
         "test": {
