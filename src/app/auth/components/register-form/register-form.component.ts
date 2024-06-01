@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { MyValidators } from './../../../utils/validators';
@@ -27,7 +27,7 @@ export class RegisterFormComponent {
   status: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private usersService: UsersService,
     private router: Router
   ) {}
