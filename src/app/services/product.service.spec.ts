@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { ProductsService } from './product.service';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
 import { generateManyProducts, generateOneProduct } from '../models/product.mock';
 import { environment } from './../../environments/environment';
-import { HttpStatusCode, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpStatusCode, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { TokenService } from './token.service';
 
@@ -16,15 +16,17 @@ describe('ProductsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [
+    imports: [],
+    providers: [
         ProductsService,
         TokenService,
         {
-          provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
-        }
-      ]
-    });
+            provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
     productService = TestBed.inject(ProductsService);
     httpController = TestBed.inject(HttpTestingController);
     tokenService = TestBed.inject(TokenService);
