@@ -1,6 +1,6 @@
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MyValidators } from './validators';
-import { UsersService } from './../services/user.service';
+import { UsersService } from '../services/user.service';
 import { mockObservable } from 'src/testing';
 
 describe('Tests for MyValidators',() => {

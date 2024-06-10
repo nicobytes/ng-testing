@@ -7,7 +7,7 @@ import { UsersService } from './../../../services/user.service';
 import { generateOneUser } from './../../../models/user.mock';
 import { asyncData, getText, mockObservable, query, queryById, setInputValue, setCheckboxValue, clickEvent, clickElement, asyncError } from 'src/testing';
 
-describe('RegisterFormComponent', () => {
+fdescribe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
   let fixture: ComponentFixture<RegisterFormComponent>;
   let userService: jasmine.SpyObj<UsersService>;
@@ -42,24 +42,24 @@ describe('RegisterFormComponent', () => {
 
   it('should the emailField be invalid', () => {
     component.emailField?.setValue('esto no es un correo');
-    expect(component.emailField?.invalid).withContext('wrong email').toBeTruthy();
+    expect(component.emailField?.invalid).toBeTruthy();
 
     component.emailField?.setValue('');
-    expect(component.emailField?.invalid).withContext('empty').toBeTruthy();
+    expect(component.emailField?.invalid).toBeTruthy();
   });
 
   it('should the passwordField be invalid', () => {
     component.passwordField?.setValue('');
-    expect(component.passwordField?.invalid).withContext('empty').toBeTruthy();
+    expect(component.passwordField?.invalid).toBeTruthy();
 
     component.passwordField?.setValue('12345');
-    expect(component.passwordField?.invalid).withContext('12345').toBeTruthy();
+    expect(component.passwordField?.invalid).toBeTruthy();
 
     component.passwordField?.setValue('asasaasasdsdsd');
-    expect(component.passwordField?.invalid).withContext('without number').toBeTruthy();
+    expect(component.passwordField?.invalid).toBeTruthy();
 
     component.passwordField?.setValue('asas1aasasdsdsd');
-    expect(component.passwordField?.valid).withContext('rigth').toBeTruthy();
+    expect(component.passwordField?.valid).toBeTruthy();
   });
 
   it('should the form be invalid', () => {
@@ -67,7 +67,7 @@ describe('RegisterFormComponent', () => {
       name: 'Nico',
       email: 'nico@gmil.com',
       password: '12121212',
-      confirPassword: '12121212',
+      confirmPassword: '12121212',
       checkTerms: false
     });
     expect(component.form.invalid).toBeTruthy();
@@ -81,7 +81,7 @@ describe('RegisterFormComponent', () => {
     inputEl.dispatchEvent(new Event('input'));
     inputEl.dispatchEvent(new Event('blur'));
     fixture.detectChanges();
-    expect(component.emailField?.invalid).withContext('wrong email').toBeTruthy();
+    expect(component.emailField?.invalid).toBeTruthy();
 
     const textError = getText(fixture, 'emailField-email');
     expect(textError).toContain("It's not a email");
@@ -90,7 +90,7 @@ describe('RegisterFormComponent', () => {
   it('should the emailField be invalid from UI with setInputValue', () => {
     setInputValue(fixture, 'input#email', 'esto no es un correo');
     fixture.detectChanges();
-    expect(component.emailField?.invalid).withContext('wrong email').toBeTruthy();
+    expect(component.emailField?.invalid).toBeTruthy();
 
     const textError = getText(fixture, 'emailField-email');
     expect(textError).toContain("It's not a email");
@@ -185,7 +185,7 @@ describe('RegisterFormComponent', () => {
     // Act
     fixture.detectChanges();
     // Assert
-    expect(component.emailField?.invalid).toBeTrue();
+    expect(component.emailField?.invalid).toBe(true);
     expect(userService.isAvailableByEmail).toHaveBeenCalledWith('nico@mail.com');
     // reto
     const errorMsg = getText(fixture, 'emailField-not-available');

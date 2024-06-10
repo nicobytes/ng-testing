@@ -4,7 +4,7 @@ import { AuthService } from "../services/auth.service";
 import { TokenService } from "../services/token.service";
 import { AuthGuard } from "./auth.guard";
 
-import { fakeActivatedRouteSnapshot, fakeParamMap, fakeRouterStateSnapshot, mockObservable } from './../../testing';
+import { fakeActivatedRouteSnapshot, fakeParamMap, fakeRouterStateSnapshot, mockObservable } from '../../testing';
 import { generateOneUser } from "../models/user.mock";
 
 describe('Tests for AuthGuard', () => {

@@ -1,41 +1,34 @@
-import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { fakeAsync } from '@angular/core/testing';
 import { generateManyProducts } from 'src/app/models/product.mock';
 import { ProductsService } from 'src/app/services/product.service';
-import { asyncData, asyncError, mockObservable, mockPromise, query, queryById, getText, RouterLinkDirectiveStub } from './../../../../testing';
+import { mockProvider, createComponentFactory, Spectator, SpyObject, byTestId } from '@ngneat/spectator/jest';
+import { mockObservable, asyncData, asyncError, RouterLinkDirectiveStub } from '../../../../testing';
 
 import { ProductsComponent } from './products.component';
-import { ProductComponent } from './../product/product.component';
 import { ValueService } from 'src/app/services/value.service';
-import { By } from '@angular/platform-browser';
 
-xdescribe('ProductsComponent', () => {
+describe('ProductsComponent', () => {
+  let spectator: Spectator<ProductsComponent>;
   let component: ProductsComponent;
-  let fixture: ComponentFixture<ProductsComponent>;
-  let productService: jasmine.SpyObj<ProductsService>;
-  let valueService: jasmine.SpyObj<ValueService>;
+  let productService: SpyObject<ProductsService>;
+  let valueService: SpyObject<ValueService>;
 
-  beforeEach(async () => {
-    const spy = jasmine.createSpyObj('ProductsService', ['getAll']);
-    const valueServiceSpy = jasmine.createSpyObj('ValueService', ['getPromiseValue']);
-
-    await TestBed.configureTestingModule({
-    imports: [ProductsComponent, ProductComponent],
-    declarations: [RouterLinkDirectiveStub],
+  const createComponent = createComponentFactory({
+    component: ProductsComponent,
     providers: [
-        { provide: ProductsService, useValue: spy },
-        { provide: ValueService, useValue: valueServiceSpy },
-    ],
-}).compileComponents();
+        mockProvider(ProductsService),
+        mockProvider(ValueService)
+    ]
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductsComponent);
-    component = fixture.componentInstance;
-    productService = TestBed.inject(ProductsService) as jasmine.SpyObj<ProductsService>;
-    valueService = TestBed.inject(ValueService) as jasmine.SpyObj<ValueService>;
+    spectator = createComponent();
+    component = spectator.component;
+    productService = spectator.inject(ProductsService);
+    valueService = spectator.inject(ValueService);
     const productsMock = generateManyProducts(3);
-    productService.getAll.and.returnValue(mockObservable(productsMock));
-    fixture.detectChanges();
+    productService.getAll.mockReturnValue(mockObservable(productsMock))
+    spectator.detectComponentChanges();
   });
 
   it('should create', () => {
@@ -46,11 +39,11 @@ xdescribe('ProductsComponent', () => {
     it('should return a product list from service', () => {
       // Arrange
       const productsMock = generateManyProducts(10);
-      const lengthPrev = component.products.length;
-      productService.getAll.and.returnValue(mockObservable(productsMock));
+      const lengthPrev = spectator.component.products.length;
+      productService.getAll.mockReturnValue(mockObservable(productsMock));
       // Act
       component.getAllProducts();
-      fixture.detectChanges();
+      spectator.detectChanges();
       // Assert
       expect(component.products.length).toEqual(productsMock.length + lengthPrev);
       expect(productService.getAll).toHaveBeenCalled();
@@ -59,15 +52,14 @@ xdescribe('ProductsComponent', () => {
     it('should return change the status "loading" => "success"', fakeAsync(() => {
       // Arrange
       const productsMock = generateManyProducts(10);
-      productService.getAll.and.returnValue(asyncData(productsMock));
+      productService.getAll.mockReturnValue(asyncData(productsMock));
 
       component.getAllProducts();
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       expect(component.status).toEqual('loading');
 
-      tick(); // flush the observable and resolve data
-      fixture.detectChanges();
+      spectator.tick(); // flush the observable and resolve data
 
       // Assert
       expect(component.status).toEqual('success');
@@ -76,16 +68,15 @@ xdescribe('ProductsComponent', () => {
 
     it('should return change the status "loading" => "error"', fakeAsync(() => {
       // Arrange
-      productService.getAll.and.returnValue(asyncError('error'));
+      productService.getAll.mockReturnValue(asyncError('error'));
 
 
       component.getAllProducts();
-      fixture.detectChanges();
+      spectator.detectChanges();
 
       expect(component.status).toEqual('loading');
 
-      tick(2000); // flush the observable and resolve data
-      fixture.detectChanges();
+      spectator.tick(2000); // flush the observable and resolve data
 
       // Assert
       expect(component.status).toEqual('error');
@@ -94,13 +85,13 @@ xdescribe('ProductsComponent', () => {
   });
 
   describe('test for callPromise', () => {
-    it('call promise', async() => {
+    it('call promise', async () => {
       // Arrange
       const mockValue = 'my mock string';
-      valueService.getPromiseValue.and.returnValue(mockPromise(mockValue));
+      valueService.getPromiseValue.mockResolvedValue(mockValue);
       // Act
       await component.callPromise();
-      fixture.detectChanges();
+      spectator.detectChanges();
       // Assert
       expect(component.rta).toEqual(mockValue);
       expect(valueService.getPromiseValue).toHaveBeenCalled();
@@ -109,19 +100,15 @@ xdescribe('ProductsComponent', () => {
     it('should show "my mock string" in <p> when btn was clicked', fakeAsync(() => {
       // Arrange
       const mockMsg = 'my mock string';
-      valueService.getPromiseValue.and.returnValue(mockPromise(mockMsg));
-      // const btnDe = fixture.debugElement.query(By.css('[data-testid="btn-promise"]'));
-      const btnDe = queryById(fixture, 'btn-promise');
+      valueService.getPromiseValue.mockResolvedValue(mockMsg);
       // Act
-      btnDe.triggerEventHandler('click', null);
-      tick();
-      fixture.detectChanges();
-      // const textRta = fixture.debugElement.query(By.css('p.rta'));
-      const textRta = getText(fixture, 'rta');
+      spectator.click(byTestId('btn-promise'));
+      spectator.tick();
+      const textRta = spectator.query(byTestId('rta'));
       // Assert
       expect(component.rta).toEqual(mockMsg);
       expect(valueService.getPromiseValue).toHaveBeenCalled();
-      expect(textRta).toContain(mockMsg);
+      expect(textRta?.textContent).toContain(mockMsg);
     }));
   })
 

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { getText, queryById } from './../../../testing';
+import { getText, queryById } from '../../../testing';
 
 import { ReversePipe } from './reverse.pipe';
 

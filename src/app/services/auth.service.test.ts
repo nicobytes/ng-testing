@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
 import { Auth } from '../models/auth.model';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AuthService', () => {

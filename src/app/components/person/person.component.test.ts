@@ -1,8 +1,8 @@
 import { DebugElement, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Person } from './../../models/person';
-import { getText, queryById, clickEvent } from './../../../testing';
+import { Person } from '../../models/person';
+import { getText, queryById, clickEvent } from '../../../testing';
 
 import { PersonComponent } from './person.component';
 import { first } from 'rxjs/operators';

@@ -4,7 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ProductsService } from './product.service';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
 import { generateManyProducts, generateOneProduct } from '../models/product.mock';
-import { environment } from './../../environments/environment';
+import { environment } from '../../environments/environment';
 import { HttpStatusCode, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { TokenService } from './token.service';
