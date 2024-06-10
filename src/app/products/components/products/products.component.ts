@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../../models/product.model';
+import { Component, OnInit, inject } from '@angular/core';
+import { Product } from '@models/product.model';
 
-import { ProductsService } from './../../../services/product.service';
-import { ValueService } from './../../../services/value.service';
+import { ProductsService } from '@services/product.service';
+import { ValueService } from '@services/value.service';
 import { ProductComponent } from '../product/product.component';
 
 
@@ -15,24 +15,22 @@ import { ProductComponent } from '../product/product.component';
 })
 export class ProductsComponent implements OnInit {
 
+  #productsService = inject(ProductsService);
+  #valueService = inject(ValueService);
+
   products: Product[] = [];
   limit = 10;
   offset = 0;
   status: 'loading' | 'success' | 'error' | 'init' = 'init';
   rta = '';
 
-  constructor(
-    private productsService: ProductsService,
-    private valueService: ValueService,
-  ) { }
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.getAllProducts();
   }
 
   getAllProducts() {
     this.status = 'loading';
-    this.productsService.getAll(this.limit, this.offset)
+    this.#productsService.getAll(this.limit, this.offset)
     .subscribe({
       next: (products) => {
         this.products = [...this.products, ...products];
@@ -49,7 +47,7 @@ export class ProductsComponent implements OnInit {
   }
 
   async callPromise() {
-    const rta = await this.valueService.getPromiseValue();
+    const rta = await this.#valueService.getPromiseValue();
     this.rta = rta;
   }
 

@@ -1,11 +1,11 @@
 import { fakeAsync } from '@angular/core/testing';
-import { generateManyProducts } from 'src/app/models/product.mock';
-import { ProductsService } from 'src/app/services/product.service';
-import { mockProvider, createComponentFactory, Spectator, SpyObject, byTestId } from '@ngneat/spectator/jest';
-import { mockObservable, asyncData, asyncError, RouterLinkDirectiveStub } from '../../../../testing';
+import { generateManyProducts } from '@models/product.mock';
+import { ProductsService } from '@services/product.service';
+import { ValueService } from '@services/value.service';
+import { mockProvider, createRoutingFactory, Spectator, SpyObject, byTestId } from '@ngneat/spectator/jest';
+import { mockObservable, asyncData, asyncError } from '@testing/index';
 
 import { ProductsComponent } from './products.component';
-import { ValueService } from 'src/app/services/value.service';
 
 describe('ProductsComponent', () => {
   let spectator: Spectator<ProductsComponent>;
@@ -13,11 +13,13 @@ describe('ProductsComponent', () => {
   let productService: SpyObject<ProductsService>;
   let valueService: SpyObject<ValueService>;
 
-  const createComponent = createComponentFactory({
+  const createComponent = createRoutingFactory({
     component: ProductsComponent,
     providers: [
-        mockProvider(ProductsService),
-        mockProvider(ValueService)
+      mockProvider(ProductsService, {
+        getAll: jest.fn().mockReturnValue(mockObservable(generateManyProducts(3)))
+      }),
+      mockProvider(ValueService),
     ]
   });
 
@@ -26,9 +28,7 @@ describe('ProductsComponent', () => {
     component = spectator.component;
     productService = spectator.inject(ProductsService);
     valueService = spectator.inject(ValueService);
-    const productsMock = generateManyProducts(3);
-    productService.getAll.mockReturnValue(mockObservable(productsMock))
-    spectator.detectComponentChanges();
+    spectator.detectChanges();
   });
 
   it('should create', () => {
@@ -97,19 +97,20 @@ describe('ProductsComponent', () => {
       expect(valueService.getPromiseValue).toHaveBeenCalled();
     })
 
-    it('should show "my mock string" in <p> when btn was clicked', fakeAsync(() => {
+    it('should show "my mock string" in <p> when btn was clicked', async () => {
       // Arrange
-      const mockMsg = 'my mock string';
+      const mockMsg = 'my mock click string';
       valueService.getPromiseValue.mockResolvedValue(mockMsg);
       // Act
       spectator.click(byTestId('btn-promise'));
-      spectator.tick();
-      const textRta = spectator.query(byTestId('rta'));
+      await spectator.fixture.whenStable();
+      spectator.detectChanges();
       // Assert
+      const textRta = spectator.query(byTestId('rta'));
       expect(component.rta).toEqual(mockMsg);
       expect(valueService.getPromiseValue).toHaveBeenCalled();
       expect(textRta?.textContent).toContain(mockMsg);
-    }));
+    });
   })
 
 

@@ -1,7 +1,7 @@
 <section class="container">
   <h1>Products component</h1>
   <button data-testid="btn-promise" (click)="callPromise()">Call promise</button>
-  <p data-testid="rta">{{ rta }}</p>
+  <p data-testid="rta" class="rta">{{ rta }}</p>
   <div class="my-grid">
     @for (product of products; track product) {
       <app-product [product]="product"></app-product>
