@@ -3,6 +3,7 @@ import type {Config} from 'jest';
 const config: Config = {
   verbose: false,
   testMatch: [ "**/?(*.)+(spec).[jt]s?(x)" ],
+  coverageReporters: ['html'],
   moduleNameMapper: {
     "@services/(.*)": "<rootDir>/src/app/services/$1",
     "@guards/(.*)": "<rootDir>/src/app/guards/$1",
