@@ -7,7 +7,7 @@ import { BannerComponent } from './components/banner/banner.component';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
+    template: '<router-outlet />',
     styleUrls: ['./app.component.scss'],
     standalone: true,
     imports: [BannerComponent, RouterLink, RouterOutlet, FooterComponent]

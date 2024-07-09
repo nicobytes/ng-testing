@@ -20,7 +20,7 @@ export class AuthGuard  {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> {
+    state: RouterStateSnapshot) {
     // const token = this.tokenService.getToken();
     // if (!token) {
     //   this.router.navigate(['/home']);
@@ -33,8 +33,7 @@ export class AuthGuard  {
     .pipe(
       map(user => {
         if(!user) {
-          this.router.navigate(['/']);
-          return false;
+          return this.router.createUrlTree(['/']);
         }
         return true;
       })

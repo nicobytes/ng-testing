@@ -1,7 +1,7 @@
 import type {Config} from 'jest';
 
 const config: Config = {
-  verbose: false,
+  verbose: true,
   testMatch: [ "**/?(*.)+(spec).[jt]s?(x)" ],
   coverageReporters: ['html'],
   moduleNameMapper: {
