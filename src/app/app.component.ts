@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Calculator } from './calculator';
+import { Calculator } from './utils/calculator';
 import { FooterComponent } from './components/footer/footer.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { BannerComponent } from './components/banner/banner.component';
@@ -8,7 +8,6 @@ import { BannerComponent } from './components/banner/banner.component';
 @Component({
     selector: 'app-root',
     template: '<router-outlet />',
-    styleUrls: ['./app.component.scss'],
     standalone: true,
     imports: [BannerComponent, RouterLink, RouterOutlet, FooterComponent]
 })

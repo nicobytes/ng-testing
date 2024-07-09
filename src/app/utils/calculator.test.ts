@@ -1,4 +1,4 @@
-import { Calculator } from './calculator';
+import { Calculator } from './utils/calculator';
 
 describe('Test for Calculator', () => {
 
