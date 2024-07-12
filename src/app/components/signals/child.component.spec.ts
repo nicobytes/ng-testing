@@ -17,6 +17,7 @@ describe('ChildComponent', () => {
       detectChanges: false
     });
     spectator.setInput('number', 1);
+    spectator.setInput('categories', ['sol', 'luna', 'estrella']);
   });
 
   it('should create', () => {

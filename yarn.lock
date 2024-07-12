@@ -2073,10 +2073,10 @@
   resolved "https://registry.yarnpkg.com/@msgpackr-extract/msgpackr-extract-win32-x64/-/msgpackr-extract-win32-x64-3.0.3.tgz#0aa5502d547b57abfc4ac492de68e2006e417242"
   integrity sha512-x0fWaQtYp4E6sktbsdAqnehxDgEc/VwM7uLsRCYWaiGu0ykYdZPiS8zCWdnjHwyiumousxfBm4SO31eXqwEZhQ==
 
-"@ngneat/spectator@^18.0.2":
-  version "18.0.2"
-  resolved "https://registry.yarnpkg.com/@ngneat/spectator/-/spectator-18.0.2.tgz#fa7ba491f164d397786aa75eb62f01f1aa7f5ae3"
-  integrity sha512-DB/do7z7IPIWEukOTWR8Pvp6TLtrkbbQ6SvAvWWQhU3YbI0uqmy3eahrkEuq5OW/J6bzfvmwJPkXxEKEhYMHXw==
+"@ngneat/spectator@^19.0.0":
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/@ngneat/spectator/-/spectator-19.0.0.tgz#e93e7ca49a00adf0cb433e8ba44533db9f7b6db4"
+  integrity sha512-u3G0rpepKuwK9alYDxyTvQ5P8XK6MXiToL36O3Lt1Q3seUT6hkpbkAAGD/pG8r+cY+Wt5zM7P8cF+1m7vWUGUA==
   dependencies:
     "@testing-library/dom" "^8.11.0"
     jquery "3.6.4"
