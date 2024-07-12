@@ -10,12 +10,12 @@ import {
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DataService } from '@services/data.service';
-import { observable } from 'rxjs';
+import { ChildComponent } from './child.component';
 
 @Component({
   selector: 'app-signals',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ChildComponent],
   providers: [DataService],
   templateUrl: './signals.component.html',
 })
