@@ -1,11 +1,11 @@
-import { ComponentFixture } from "@angular/core/testing";
+import { ComponentFixture } from '@angular/core/testing';
 import { query, queryById } from './finders';
 
 export function clickEvent<T>(
   fixture: ComponentFixture<T>,
   selector: string,
   withTestId: boolean = false,
-  event: unknown = null
+  event: unknown = null,
 ) {
   let element;
   if (withTestId) {
@@ -19,7 +19,7 @@ export function clickEvent<T>(
 export function clickElement<T>(
   fixture: ComponentFixture<T>,
   selector: string,
-  withTestId: boolean = false
+  withTestId: boolean = false,
 ) {
   let elementDebug;
   if (withTestId) {

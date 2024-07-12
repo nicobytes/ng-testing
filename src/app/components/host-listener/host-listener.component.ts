@@ -17,8 +17,7 @@ export class HostListenerComponent {
 
   constructor() {
     this.#resizeSubject
-    .pipe( debounceTime(500))
-    .subscribe(() => console.log('calc'));
+      .pipe(debounceTime(500))
+      .subscribe(() => console.log('calc'));
   }
-
 }

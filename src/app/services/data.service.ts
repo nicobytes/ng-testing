@@ -4,13 +4,11 @@ import { delay, of } from 'rxjs';
 
 @Injectable()
 export class DataService {
-
   #http = inject(HttpClient);
 
-  constructor() { }
+  constructor() {}
 
   isInstalled() {
     return of(true).pipe(delay(5000));
   }
-
 }

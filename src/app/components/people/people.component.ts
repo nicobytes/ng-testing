@@ -3,26 +3,23 @@ import { Component, OnInit } from '@angular/core';
 import { Person } from './../../models/person';
 import { PersonComponent } from '../person/person.component';
 
-
 @Component({
-    selector: 'app-people',
-    templateUrl: './people.component.html',
-    styleUrls: ['./people.component.scss'],
-    standalone: true,
-    imports: [PersonComponent]
+  selector: 'app-people',
+  templateUrl: './people.component.html',
+  styleUrls: ['./people.component.scss'],
+  standalone: true,
+  imports: [PersonComponent],
 })
-export class PeopleComponent  {
-
+export class PeopleComponent {
   people: Person[] = [
-    new Person('Nicolas', 'Molina', 28, 68, 1.70),
-    new Person('Valentina', 'Molina', 13, 40, 1.60),
+    new Person('Nicolas', 'Molina', 28, 68, 1.7),
+    new Person('Valentina', 'Molina', 13, 40, 1.6),
   ];
   selectedPerson!: Person;
 
-  constructor() { }
+  constructor() {}
 
-  onSelect(person: Person){
+  onSelect(person: Person) {
     this.selectedPerson = person;
   }
-
 }

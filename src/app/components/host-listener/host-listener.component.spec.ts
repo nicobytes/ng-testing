@@ -8,9 +8,8 @@ describe('HostListenerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HostListenerComponent]
-    })
-    .compileComponents();
+      imports: [HostListenerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HostListenerComponent);
     component = fixture.componentInstance;

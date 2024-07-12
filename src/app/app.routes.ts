@@ -10,33 +10,29 @@ import { ResizeObserverComponent } from './components/resize-observer/resize-obs
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: HomeComponent
-    },
-    {
-        path: 'pico',
-        loadComponent: () => import('./components/pico-preview/pico-preview.component')
-    },
-    {
-        path: 'people',
-        component: PeopleComponent
-    },
-    {
-        path: 'others',
-        canActivate: [AuthGuard],
-        component: OthersComponent
-    },
-    {
-        path: 'signals/:id',
-        component: SignalsComponent
-    },
-    {
-        path: 'resize',
-        component: HostListenerComponent
-    },
-    {
-        path: 'resize-observer',
-        component: ResizeObserverComponent
-    }
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  {
+    path: 'pico',
+    loadComponent: () =>
+      import('./components/pico-preview/pico-preview.component'),
+  },
+  {
+    path: 'lifecycle',
+    loadComponent: () => import('./components/lifecycle/parent.component'),
+  },
+  {
+    path: 'signals/:id',
+    component: SignalsComponent,
+  },
+  {
+    path: 'resize',
+    component: HostListenerComponent,
+  },
+  {
+    path: 'resize-observer',
+    component: ResizeObserverComponent,
+  },
 ];

@@ -4,7 +4,7 @@ export class Person {
     public lastname: string,
     public age: number,
     public weight: number,
-    public height: number
+    public height: number,
   ) {}
 
   calcIMC(): string {

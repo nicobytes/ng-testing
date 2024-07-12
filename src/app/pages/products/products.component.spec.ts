@@ -2,7 +2,13 @@ import { fakeAsync } from '@angular/core/testing';
 import { generateManyProducts } from '@models/product.mock';
 import { ProductsService } from '@services/product.service';
 import { ValueService } from '@services/value.service';
-import { mockProvider, createRoutingFactory, Spectator, SpyObject, byTestId } from '@ngneat/spectator/jest';
+import {
+  mockProvider,
+  createRoutingFactory,
+  Spectator,
+  SpyObject,
+  byTestId,
+} from '@ngneat/spectator/jest';
 import { mockObservable, asyncData, asyncError } from '@testing/index';
 
 import { ProductsComponent } from './products.component';
@@ -17,10 +23,12 @@ describe('ProductsComponent', () => {
     component: ProductsComponent,
     providers: [
       mockProvider(ProductsService, {
-        getAll: jest.fn().mockReturnValue(mockObservable(generateManyProducts(3)))
+        getAll: jest
+          .fn()
+          .mockReturnValue(mockObservable(generateManyProducts(3))),
       }),
       mockProvider(ValueService),
-    ]
+    ],
   });
 
   beforeEach(() => {
@@ -45,7 +53,9 @@ describe('ProductsComponent', () => {
       component.getAllProducts();
       spectator.detectChanges();
       // Assert
-      expect(component.products.length).toEqual(productsMock.length + lengthPrev);
+      expect(component.products.length).toEqual(
+        productsMock.length + lengthPrev,
+      );
       expect(productService.getAll).toHaveBeenCalled();
     });
 
@@ -69,7 +79,6 @@ describe('ProductsComponent', () => {
     it('should return change the status "loading" => "error"', fakeAsync(() => {
       // Arrange
       productService.getAll.mockReturnValue(asyncError('error'));
-
 
       component.getAllProducts();
       spectator.detectChanges();
@@ -95,7 +104,7 @@ describe('ProductsComponent', () => {
       // Assert
       expect(component.rta).toEqual(mockValue);
       expect(valueService.getPromiseValue).toHaveBeenCalled();
-    })
+    });
 
     it('should show "my mock string" in <p> when btn was clicked', async () => {
       // Arrange
@@ -111,7 +120,5 @@ describe('ProductsComponent', () => {
       expect(valueService.getPromiseValue).toHaveBeenCalled();
       expect(textRta?.textContent).toContain(mockMsg);
     });
-  })
-
-
+  });
 });

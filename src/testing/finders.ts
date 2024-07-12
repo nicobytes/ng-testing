@@ -1,6 +1,6 @@
-import { Type } from "@angular/core";
-import { ComponentFixture } from "@angular/core/testing";
-import { By } from "@angular/platform-browser";
+import { Type } from '@angular/core';
+import { ComponentFixture } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 export function getText<T>(fixture: ComponentFixture<T>, testId: string) {
   const debugElement = queryById(fixture, testId);
@@ -25,6 +25,9 @@ export function queryAll<T>(fixture: ComponentFixture<T>, selector: string) {
   return fixture.debugElement.queryAll(By.css(selector));
 }
 
-export function queryAllByDirective<T, D>(fixture: ComponentFixture<T>, directive: Type<D>) {
+export function queryAllByDirective<T, D>(
+  fixture: ComponentFixture<T>,
+  directive: Type<D>,
+) {
   return fixture.debugElement.queryAll(By.directive(directive));
 }

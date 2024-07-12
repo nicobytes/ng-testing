@@ -1,4 +1,11 @@
-import { Spectator, createComponentFactory, mockProvider, SpyObject, createSpyObject, byTestId } from '@ngneat/spectator/jest';
+import {
+  Spectator,
+  createComponentFactory,
+  mockProvider,
+  SpyObject,
+  createSpyObject,
+  byTestId,
+} from '@ngneat/spectator/jest';
 
 import { SignalsComponent } from './signals.component';
 import { DataService } from '@services/data.service';
@@ -12,17 +19,17 @@ describe('SignalsComponent', () => {
     component: SignalsComponent,
     componentProviders: [
       mockProvider(DataService, {
-        isInstalled: jest.fn().mockReturnValue(of(true))
-      })
-    ]
+        isInstalled: jest.fn().mockReturnValue(of(true)),
+      }),
+    ],
   });
 
   beforeEach(() => {
     spectator = createComponent({
-      detectChanges: false
+      detectChanges: false,
     });
     dataService = spectator.inject(DataService, true);
-  })
+  });
 
   it('should create', () => {
     spectator.detectChanges();
@@ -35,7 +42,7 @@ describe('SignalsComponent', () => {
   });
 
   it('should the checked be true', () => {
-    dataService.isInstalled().subscribe(console.log)
+    dataService.isInstalled().subscribe(console.log);
     spectator.detectChanges();
     const element = spectator.query<HTMLInputElement>(byTestId('checkbox'));
     expect(element?.checked).toBeTruthy();
@@ -62,14 +69,14 @@ describe('SignalsComponent with false', () => {
     component: SignalsComponent,
     componentProviders: [
       mockProvider(DataService, {
-        isInstalled: jest.fn().mockReturnValue(of(false))
-      })
-    ]
+        isInstalled: jest.fn().mockReturnValue(of(false)),
+      }),
+    ],
   });
 
   beforeEach(() => {
     spectator = createComponent({
-      detectChanges: false
+      detectChanges: false,
     });
     dataService = spectator.inject(DataService, true);
   });

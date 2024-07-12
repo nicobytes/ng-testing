@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ValueService {
-
   private value = 'my value';
 
-  constructor() { }
+  constructor() {}
 
   getValue() {
     // code

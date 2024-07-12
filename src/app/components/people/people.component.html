@@ -11,9 +11,6 @@
   <hr />
   <h3>Count ({{ people.length }})</h3>
   @for (person of people; track person) {
-    <app-person
-      [person]="person"
-      (selected)="onSelect($event)"
-    ></app-person>
+    <app-person [person]="person" (selected)="onSelect($event)"></app-person>
   }
 </section>

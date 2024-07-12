@@ -5,16 +5,14 @@ import { ProductsService } from '@services/product.service';
 import { ValueService } from '@services/value.service';
 import { ProductComponent } from '../product/product.component';
 
-
 @Component({
-    selector: 'app-products',
-    templateUrl: './products.component.html',
-    styleUrls: ['./products.component.scss'],
-    standalone: true,
-    imports: [ProductComponent]
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.scss'],
+  standalone: true,
+  imports: [ProductComponent],
 })
 export class ProductsComponent implements OnInit {
-
   #productsService = inject(ProductsService);
   #valueService = inject(ValueService);
 
@@ -30,8 +28,7 @@ export class ProductsComponent implements OnInit {
 
   getAllProducts() {
     this.status = 'loading';
-    this.#productsService.getAll(this.limit, this.offset)
-    .subscribe({
+    this.#productsService.getAll(this.limit, this.offset).subscribe({
       next: (products) => {
         this.products = [...this.products, ...products];
         this.offset += this.limit;
@@ -42,7 +39,7 @@ export class ProductsComponent implements OnInit {
           this.products = [];
           this.status = 'error';
         }, 1000);
-      }
+      },
     });
   }
 
@@ -50,5 +47,4 @@ export class ProductsComponent implements OnInit {
     const rta = await this.#valueService.getPromiseValue();
     this.rta = rta;
   }
-
 }

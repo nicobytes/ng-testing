@@ -1,11 +1,26 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 
 import { ProductsService } from './product.service';
-import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
-import { generateManyProducts, generateOneProduct } from '../models/product.mock';
+import {
+  Product,
+  CreateProductDTO,
+  UpdateProductDTO,
+} from '../models/product.model';
+import {
+  generateManyProducts,
+  generateOneProduct,
+} from '../models/product.mock';
 import { environment } from '../../environments/environment';
-import { HttpStatusCode, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  HttpStatusCode,
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { TokenService } from './token.service';
 
@@ -16,17 +31,19 @@ describe('ProductsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [
+      imports: [],
+      providers: [
         ProductsService,
         TokenService,
         {
-            provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+          provide: HTTP_INTERCEPTORS,
+          useClass: TokenInterceptor,
+          multi: true,
         },
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-    ]
-});
+        provideHttpClientTesting(),
+      ],
+    });
     productService = TestBed.inject(ProductsService);
     httpController = TestBed.inject(HttpTestingController);
     tokenService = TestBed.inject(TokenService);
@@ -46,8 +63,7 @@ describe('ProductsService', () => {
       const mockData: Product[] = generateManyProducts(2);
       spyOn(tokenService, 'getToken').and.returnValue('123');
       //Act
-      productService.getAllSimple()
-      .subscribe((data)=> {
+      productService.getAllSimple().subscribe((data) => {
         //Assert
         expect(data.length).toEqual(mockData.length);
         expect(data).toEqual(mockData);
@@ -68,8 +84,7 @@ describe('ProductsService', () => {
       //Arrange
       const mockData: Product[] = generateManyProducts(3);
       //Act
-      productService.getAll()
-      .subscribe((data)=> {
+      productService.getAll().subscribe((data) => {
         //Assert
         expect(data.length).toEqual(mockData.length);
         doneFn();
@@ -102,8 +117,7 @@ describe('ProductsService', () => {
         },
       ];
       //Act
-      productService.getAll()
-      .subscribe((data)=> {
+      productService.getAll().subscribe((data) => {
         //Assert
         expect(data.length).toEqual(mockData.length);
         expect(data[0].taxes).toEqual(19);
@@ -125,8 +139,7 @@ describe('ProductsService', () => {
       const limit = 10;
       const offset = 3;
       //Act
-      productService.getAll(limit, offset)
-      .subscribe((data)=> {
+      productService.getAll(limit, offset).subscribe((data) => {
         //Assert
         expect(data.length).toEqual(mockData.length);
         doneFn();
@@ -143,7 +156,6 @@ describe('ProductsService', () => {
   });
 
   describe('test for create', () => {
-
     it('should return a new product', (doneFn) => {
       // Arrange
       const mockData = generateOneProduct();
@@ -152,11 +164,10 @@ describe('ProductsService', () => {
         price: 100,
         images: ['img'],
         description: 'bla bla bla',
-        categoryId: 12
-      }
+        categoryId: 12,
+      };
       // Act
-      productService.create({...dto})
-      .subscribe(data => {
+      productService.create({ ...dto }).subscribe((data) => {
         // Assert
         expect(data).toEqual(mockData);
         doneFn();
@@ -169,7 +180,6 @@ describe('ProductsService', () => {
       expect(req.request.body).toEqual(dto);
       expect(req.request.method).toEqual('POST');
     });
-
   });
 
   describe('test for update', () => {
@@ -178,11 +188,10 @@ describe('ProductsService', () => {
       const mockData: Product = generateOneProduct();
       const dto: UpdateProductDTO = {
         title: 'new product',
-      }
+      };
       const productId = '1';
       // Act
-      productService.update(productId, {...dto})
-      .subscribe((data) => {
+      productService.update(productId, { ...dto }).subscribe((data) => {
         // Assert
         expect(data).toEqual(mockData);
         doneFn();
@@ -203,8 +212,7 @@ describe('ProductsService', () => {
       const mockData = true;
       const productId = '1';
       // Act
-      productService.delete(productId)
-      .subscribe((data) => {
+      productService.delete(productId).subscribe((data) => {
         // Assert
         expect(data).toEqual(mockData);
         doneFn();
@@ -224,8 +232,7 @@ describe('ProductsService', () => {
       const mockData: Product = generateOneProduct();
       const productId = '1';
       // Act
-      productService.getOne(productId)
-      .subscribe((data) => {
+      productService.getOne(productId).subscribe((data) => {
         // Assert
         expect(data).toEqual(mockData);
         doneFn();
@@ -244,16 +251,15 @@ describe('ProductsService', () => {
       const msgError = '404 message';
       const mockError = {
         status: HttpStatusCode.NotFound,
-        statusText: msgError
+        statusText: msgError,
       };
       // Act
-      productService.getOne(productId)
-      .subscribe({
+      productService.getOne(productId).subscribe({
         error: (error) => {
           // assert
           expect(error).toEqual('El producto no existe');
           doneFn();
-        }
+        },
       });
 
       // productService.getOne(productId)
@@ -269,5 +275,4 @@ describe('ProductsService', () => {
       req.flush(msgError, mockError);
     });
   });
-
 });

@@ -2,18 +2,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Person } from './../../models/person';
 
 @Component({
-    selector: 'app-person',
-    templateUrl: './person.component.html',
-    styleUrls: ['./person.component.scss'],
-    standalone: true
+  selector: 'app-person',
+  templateUrl: './person.component.html',
+  styleUrls: ['./person.component.scss'],
+  standalone: true,
 })
 export class PersonComponent {
-
   @Input() person!: Person;
   @Output() selected = new EventEmitter<Person>();
   imc = '';
 
-  constructor() { }
+  constructor() {}
 
   calcIMC() {
     this.imc = this.person.calcIMC();
@@ -22,5 +21,4 @@ export class PersonComponent {
   onClick() {
     this.selected.emit(this.person);
   }
-
 }

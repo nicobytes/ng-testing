@@ -8,9 +8,8 @@ xdescribe('PicoPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [PicoPreviewComponent]
-})
-    .compileComponents();
+      imports: [PicoPreviewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

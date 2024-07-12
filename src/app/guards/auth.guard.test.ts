@@ -1,11 +1,16 @@
-import { TestBed } from "@angular/core/testing";
-import { Router } from "@angular/router";
-import { AuthService } from "../services/auth.service";
-import { TokenService } from "../services/token.service";
-import { AuthGuard } from "./auth.guard";
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
+import { AuthGuard } from './auth.guard';
 
-import { fakeActivatedRouteSnapshot, fakeParamMap, fakeRouterStateSnapshot, mockObservable } from '../../testing';
-import { generateOneUser } from "../models/user.mock";
+import {
+  fakeActivatedRouteSnapshot,
+  fakeParamMap,
+  fakeRouterStateSnapshot,
+  mockObservable,
+} from '../../testing';
+import { generateOneUser } from '../models/user.mock';
 
 describe('Tests for AuthGuard', () => {
   let guard: AuthGuard;
@@ -24,7 +29,7 @@ describe('Tests for AuthGuard', () => {
         { provide: TokenService, useValue: tokenServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
         { provide: Router, useValue: routerSpy },
-      ]
+      ],
     });
     guard = TestBed.inject(AuthGuard);
     tokenService = TestBed.inject(TokenService) as jasmine.SpyObj<TokenService>;
@@ -43,8 +48,7 @@ describe('Tests for AuthGuard', () => {
     const userMock = generateOneUser();
     authService.getUser.and.returnValue(mockObservable(userMock));
 
-    guard.canActivate(activatedRoute, routerState)
-    .subscribe(rta => {
+    guard.canActivate(activatedRoute, routerState).subscribe((rta) => {
       expect(rta).toBeTrue();
       doneFn();
     });
@@ -56,8 +60,7 @@ describe('Tests for AuthGuard', () => {
 
     authService.getUser.and.returnValue(mockObservable(null));
 
-    guard.canActivate(activatedRoute, routerState)
-    .subscribe(rta => {
+    guard.canActivate(activatedRoute, routerState).subscribe((rta) => {
       expect(rta).toBeFalse();
       expect(router.navigate).toHaveBeenCalledWith(['/']);
       doneFn();
@@ -70,12 +73,10 @@ describe('Tests for AuthGuard', () => {
 
     authService.getUser.and.returnValue(mockObservable(null));
 
-    guard.canActivate(activatedRoute, routerState)
-    .subscribe(rta => {
+    guard.canActivate(activatedRoute, routerState).subscribe((rta) => {
       expect(rta).toBeFalse();
       expect(router.navigate).toHaveBeenCalledWith(['/']);
       doneFn();
     });
   });
-
 });

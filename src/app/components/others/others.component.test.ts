@@ -8,9 +8,8 @@ xdescribe('OthersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [OthersComponent]
-})
-    .compileComponents();
+      imports: [OthersComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

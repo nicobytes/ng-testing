@@ -8,9 +8,9 @@ export const generateOneUser = (): User => {
     email: faker.internet.email(),
     password: faker.internet.password(),
     name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-    role: 'customer'
+    role: 'customer',
   };
-}
+};
 
 export const generateManyUser = (size = 10): User[] => {
   const users: User[] = [];
@@ -18,4 +18,4 @@ export const generateManyUser = (size = 10): User[] => {
     users.push(generateOneUser());
   }
   return [...users];
-}
+};

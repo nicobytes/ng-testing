@@ -8,9 +8,8 @@ describe('ResizeObserverComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ResizeObserverComponent]
-    })
-    .compileComponents();
+      imports: [ResizeObserverComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ResizeObserverComponent);
     component = fixture.componentInstance;

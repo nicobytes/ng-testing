@@ -1,6 +1,5 @@
 export class FakeValueService {
-
-  constructor() { }
+  constructor() {}
 
   getValue() {
     return 'fake value';

@@ -8,30 +8,28 @@ import { queryAllByDirective, queryAll } from '../../../testing';
 import { HighlightDirective } from './highlight.directive';
 
 @Component({
-    template: `
+  template: `
     <h5 class="title" appHighlight>default</h5>
     <h5 appHighlight="yellow">yellow</h5>
     <p appHighlight="blue">parrafo</p>
     <p>otro parrafo</p>
-    <input [(ngModel)]="color" [appHighlight]="color">
+    <input [(ngModel)]="color" [appHighlight]="color" />
   `,
-    standalone: true,
-    imports: [FormsModule]
+  standalone: true,
+  imports: [FormsModule],
 })
 class HostComponent {
   color = 'pink';
 }
 
 xdescribe('HighlightDirective', () => {
-
   let component: HostComponent;
   let fixture: ComponentFixture<HostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [FormsModule, HostComponent, HighlightDirective]
-})
-    .compileComponents();
+      imports: [FormsModule, HostComponent, HighlightDirective],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -54,7 +52,9 @@ xdescribe('HighlightDirective', () => {
   });
 
   it('should the elements be match with bgColor', () => {
-    const elements = fixture.debugElement.queryAll(By.directive(HighlightDirective));
+    const elements = fixture.debugElement.queryAll(
+      By.directive(HighlightDirective),
+    );
     expect(elements[0].nativeElement.style.backgroundColor).toEqual('gray');
     expect(elements[1].nativeElement.style.backgroundColor).toEqual('yellow');
     expect(elements[2].nativeElement.style.backgroundColor).toEqual('blue');
@@ -63,7 +63,9 @@ xdescribe('HighlightDirective', () => {
   it('should the h5.title be defaultColor', () => {
     const titleDe = fixture.debugElement.query(By.css('.title'));
     const dir = titleDe.injector.get(HighlightDirective);
-    expect(titleDe.nativeElement.style.backgroundColor).toEqual(dir.defaultColor);
+    expect(titleDe.nativeElement.style.backgroundColor).toEqual(
+      dir.defaultColor,
+    );
   });
 
   it('should bind <input> and change the bgColor', () => {

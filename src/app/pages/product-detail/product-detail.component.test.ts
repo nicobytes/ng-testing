@@ -1,7 +1,17 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { ActivatedRouteStub, asyncData, getText, mockObservable } from '../../../../testing';
+import {
+  ActivatedRouteStub,
+  asyncData,
+  getText,
+  mockObservable,
+} from '../../../../testing';
 import { ProductsService } from '../../../services/product.service';
 import { generateOneProduct } from '../../../models/product.mock';
 
@@ -16,25 +26,28 @@ describe('ProductDetailComponent', () => {
 
   beforeEach(async () => {
     const routeStub = new ActivatedRouteStub();
-    const productServiceSpy = jasmine.createSpyObj('ProductsService', ['getOne']);
+    const productServiceSpy = jasmine.createSpyObj('ProductsService', [
+      'getOne',
+    ]);
     const locationSpy = jasmine.createSpyObj('Location', ['back']);
 
     await TestBed.configureTestingModule({
-    imports: [ProductDetailComponent],
-    providers: [
+      imports: [ProductDetailComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ProductsService, useValue: productServiceSpy },
         { provide: Location, useValue: locationSpy },
-    ]
-})
-    .compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductDetailComponent);
     component = fixture.componentInstance;
     route = TestBed.inject(ActivatedRoute) as unknown as ActivatedRouteStub;
-    productsService = TestBed.inject(ProductsService) as jasmine.SpyObj<ProductsService>;
+    productsService = TestBed.inject(
+      ProductsService,
+    ) as jasmine.SpyObj<ProductsService>;
     location = TestBed.inject(Location) as jasmine.SpyObj<Location>;
   });
 
@@ -45,7 +58,7 @@ describe('ProductDetailComponent', () => {
     const productMock = {
       ...generateOneProduct(),
       id: productId,
-    }
+    };
 
     productsService.getOne.and.returnValue(mockObservable(productMock));
 
@@ -60,7 +73,7 @@ describe('ProductDetailComponent', () => {
     const productMock = {
       ...generateOneProduct(),
       id: productId,
-    }
+    };
 
     productsService.getOne.and.returnValue(mockObservable(productMock));
 
@@ -87,7 +100,7 @@ describe('ProductDetailComponent', () => {
     const productMock = {
       ...generateOneProduct(),
       id: productId,
-    }
+    };
 
     productsService.getOne.and.returnValue(asyncData(productMock));
     // Act
@@ -109,7 +122,7 @@ describe('ProductDetailComponent', () => {
     const productMock = {
       ...generateOneProduct(),
       id: productId,
-    }
+    };
 
     productsService.getOne.and.returnValue(mockObservable(productMock));
     // Act

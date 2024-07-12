@@ -10,11 +10,11 @@ export const generateOneProduct = (): Product => {
     description: faker.commerce.productDescription(),
     category: {
       id: faker.string.uuid(),
-      name: faker.commerce.department()
+      name: faker.commerce.department(),
     },
-    images: [faker.image.url(), faker.image.url()]
+    images: [faker.image.url(), faker.image.url()],
   };
-}
+};
 
 export const generateManyProducts = (size = 10): Product[] => {
   const products: Product[] = [];
@@ -22,4 +22,4 @@ export const generateManyProducts = (size = 10): Product[] => {
     products.push(generateOneProduct());
   }
   return [...products];
-}
+};

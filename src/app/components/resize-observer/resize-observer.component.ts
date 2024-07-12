@@ -6,27 +6,25 @@ import { BehaviorSubject, Subject, debounceTime } from 'rxjs';
   standalone: true,
   imports: [],
   template: `<div>Hello</div>`,
-  styles: `:host{
-    border: 1px solid red;
-    width: 100%;
-    display: block;
-  }`
+  styles: `
+    :host {
+      border: 1px solid red;
+      width: 100%;
+      display: block;
+    }
+  `,
 })
 export class ResizeObserverComponent {
-
   readonly #host = inject(ElementRef);
-  readonly #resizeObserver = new ResizeObserver(entries => {
+  readonly #resizeObserver = new ResizeObserver((entries) => {
     this.#resize$.next(entries[0]);
   });
   readonly #resize$ = new Subject<ResizeObserverEntry>();
 
   constructor() {
     this.#resizeObserver.observe(this.#host.nativeElement);
-    this.#resize$
-    .pipe(debounceTime(500))
-    .subscribe(() => {
+    this.#resize$.pipe(debounceTime(500)).subscribe(() => {
       console.log('change');
-    })
+    });
   }
-
 }

@@ -1,12 +1,12 @@
-import { DebugElement } from "@angular/core";
-import { ComponentFixture } from "@angular/core/testing";
+import { DebugElement } from '@angular/core';
+import { ComponentFixture } from '@angular/core/testing';
 import { query, queryById } from './finders';
 
 export function setInputValue<T>(
   fixture: ComponentFixture<T>,
   selector: string,
   value: string,
-  withTestId: boolean = false
+  withTestId: boolean = false,
 ) {
   let debugElement: DebugElement;
   if (withTestId) {
@@ -24,7 +24,7 @@ export function setCheckboxValue<T>(
   fixture: ComponentFixture<T>,
   selector: string,
   value: boolean,
-  withTestId: boolean = false
+  withTestId: boolean = false,
 ) {
   let debugElement: DebugElement;
   if (withTestId) {

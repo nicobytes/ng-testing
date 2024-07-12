@@ -1,19 +1,31 @@
-import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
-import { ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
-import { Router, RouterLink } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-import { asyncData, clickElement, clickEvent, getText, mockObservable, query, queryAllByDirective } from "src/testing";
-import { AppComponent } from "./app.component";
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { Router, RouterLink } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  asyncData,
+  clickElement,
+  clickEvent,
+  getText,
+  mockObservable,
+  query,
+  queryAllByDirective,
+} from 'src/testing';
+import { AppComponent } from './app.component';
 
 import { routes } from './app-routing.module';
 //import { AppModule } from './app.module';
 import { ProductsService } from './services/product.service';
 import { AuthService } from './services/auth.service';
-import { generateManyProducts } from "./models/product.mock";
-import { generateOneUser } from "./models/user.mock";
+import { generateManyProducts } from './models/product.mock';
+import { generateOneUser } from './models/user.mock';
 
 describe('App Integration test', () => {
-
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
   let router: Router;
@@ -21,7 +33,9 @@ describe('App Integration test', () => {
   let authService: jasmine.SpyObj<AuthService>;
 
   beforeEach(async () => {
-    const productServiceSpy = jasmine.createSpyObj('ProductsService', ['getAll']);
+    const productServiceSpy = jasmine.createSpyObj('ProductsService', [
+      'getAll',
+    ]);
     const authServiceSpy = jasmine.createSpyObj('AuthService', ['getUser']);
 
     await TestBed.configureTestingModule({
@@ -33,7 +47,7 @@ describe('App Integration test', () => {
         { provide: ProductsService, useValue: productServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
@@ -43,7 +57,9 @@ describe('App Integration test', () => {
     fixture.detectChanges();
     // providers
     router = TestBed.inject(Router);
-    productService = TestBed.inject(ProductsService) as jasmine.SpyObj<ProductsService>;
+    productService = TestBed.inject(
+      ProductsService,
+    ) as jasmine.SpyObj<ProductsService>;
     authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
 
     router.initialNavigation();
@@ -81,10 +97,9 @@ describe('App Integration test', () => {
     expect(element).not.toBeNull();
     const text = getText(fixture, 'products-length');
     expect(text).toContain(productsMocks.length);
-  }))
+  }));
 
   it('should render OtherComponent when clicked without session', fakeAsync(() => {
-
     authService.getUser.and.returnValue(mockObservable(null));
 
     clickElement(fixture, 'others-link', true);
@@ -96,8 +111,7 @@ describe('App Integration test', () => {
     fixture.detectChanges();
 
     expect(router.url).toEqual('/');
-  }))
-
+  }));
 
   it('should render PicoPreviewComponent when clicked', fakeAsync(() => {
     clickElement(fixture, 'pico-link', true);
@@ -108,6 +122,5 @@ describe('App Integration test', () => {
     expect(router.url).toEqual('/pico-preview');
     const element = query(fixture, 'app-pico-preview');
     expect(element).not.toBeNull();
-  }))
-
+  }));
 });

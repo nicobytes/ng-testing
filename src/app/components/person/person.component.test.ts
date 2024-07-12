@@ -14,9 +14,8 @@ describe('PersonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TestHostComponent, PersonComponent]
-})
-    .compileComponents();
+      imports: [TestHostComponent, PersonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -32,7 +31,7 @@ describe('PersonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should the name be 'nicolas'", ()=>{
+  it("should the name be 'nicolas'", () => {
     expect(component.person.name).toEqual('Nicolas');
   });
 
@@ -109,11 +108,9 @@ describe('PersonComponent', () => {
     const buttonDe = queryById(fixture, 'btn-person');
 
     let selectedPerson: Person | undefined;
-    component.selected
-      .pipe(first())
-      .subscribe((person: Person) => {
-        selectedPerson = person;
-      });
+    component.selected.pipe(first()).subscribe((person: Person) => {
+      selectedPerson = person;
+    });
     // Act
     component.person = expectedPerson;
     buttonDe.triggerEventHandler('click', null);
@@ -124,14 +121,12 @@ describe('PersonComponent', () => {
 });
 
 @Component({
-    template: `
-    <app-person
-      [person]="person" (selected)="onSelected($event)">
-    </app-person>`,
-    standalone: true
+  template: ` <app-person [person]="person" (selected)="onSelected($event)">
+  </app-person>`,
+  standalone: true,
 })
 class TestHostComponent {
-  person: Person = new Person('Nicolas', 'Molina', 28, 68, 1.65);;
+  person: Person = new Person('Nicolas', 'Molina', 28, 68, 1.65);
   selectedPerson: Person | undefined;
   onSelected(person: Person) {
     this.selectedPerson = person;
@@ -145,9 +140,8 @@ describe('PersonComponent from HostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TestHostComponent, PersonComponent]
-})
-    .compileComponents();
+      imports: [TestHostComponent, PersonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

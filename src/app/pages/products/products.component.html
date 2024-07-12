@@ -1,6 +1,8 @@
 <section class="container">
   <h1>Products component</h1>
-  <button data-testid="btn-promise" (click)="callPromise()">Call promise</button>
+  <button data-testid="btn-promise" (click)="callPromise()">
+    Call promise
+  </button>
   <p data-testid="rta" class="rta">{{ rta }}</p>
   <div class="my-grid">
     @for (product of products; track product) {
@@ -8,13 +10,13 @@
     }
   </div>
   <button [disabled]="status === 'loading'" (click)="getAllProducts()">
-    @if (status === 'init' || status === 'success') {
+    @if (status === "init" || status === "success") {
       <span>Load more</span>
     }
-    @if (status === 'loading') {
+    @if (status === "loading") {
       <span>Loading</span>
     }
-    @if (status === 'error') {
+    @if (status === "error") {
       <span>Error</span>
     }
   </button>
