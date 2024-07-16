@@ -7,7 +7,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DataService } from '@services/data.service';
 import { ChildComponent } from './child.component';
@@ -20,6 +20,7 @@ import { ChildComponent } from './child.component';
   templateUrl: './signals.component.html',
 })
 export class SignalsComponent implements OnInit {
+  control = new FormControl();
   #dataService = inject(DataService);
   $isInstalled = toSignal(this.#dataService.isInstalled(), {
     initialValue: false,
@@ -43,4 +44,6 @@ export class SignalsComponent implements OnInit {
       this.$manual.set(value);
     });
   }
+
+
 }

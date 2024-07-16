@@ -3,5 +3,5 @@
     <p>{{ $isInstalled() }}</p>
     <input type="checkbox" data-testid="checkbox" [checked]="$isInstalled()" />
     <input type="text" [(ngModel)]="$value" /> 
-    <app-child [number]="4" />  
+    <app-child [number]="4" [categories]="[]"/>  
 </main>
