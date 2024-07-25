@@ -3,5 +3,10 @@
     <p>{{ $isInstalled() }}</p>
     <input type="checkbox" data-testid="checkbox" [checked]="$isInstalled()" />
     <input type="text" [(ngModel)]="$value" /> 
-    <app-child [number]="4" [categories]="[]"/>  
+    <button type="button" (click)="toggleChild()">show</button>
+    <button type="button" (click)="increment()">increment</button>
+    <p>{{ $number() }}</p>
+    @if ($showChild()) {
+        <app-child [number]="$number()" [categories]="[]"/>  
+    }
 </main>

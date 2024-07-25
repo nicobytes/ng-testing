@@ -1,0 +1,7 @@
+@use "sass:map";
+
+// Mixes a color with black to create its shade.
+// --------------------------------------------------------------------------------------------
+@function get-hsl-color($color, $amount) {
+    @return hsl(map.get($color, h) map.get($color, s) $amount);
+}

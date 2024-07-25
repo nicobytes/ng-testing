@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input } from '@angular/core';
 
 @Component({
   selector: 'app-child',
@@ -14,5 +14,10 @@ export class ChildComponent {
 
   $categories  = input.required<string[]>({alias: 'categories'});
   $categoriesToShow = computed(() => this.$categories().filter(category => category.length > 3));
+
+  readonly readNumber = effect(() => {
+    const number = this.$number();
+    console.log('Number:', number);
+  });
 
 }

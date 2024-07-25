@@ -1,0 +1,23 @@
+@use "sass:map";
+
+.btn {
+    padding: .5rem 1rem;
+    margin: .5rem;
+    @each $color-name, $value in $colors {
+        &.btn-#{$color-name} {
+            background-color: var(--color-#{$color-name}-tint);
+            color: var(--color-#{$color-name}-tint-contrast);
+            border: 1px solid var(--color-#{$color-name}-tint);
+            &.btn-outline {
+                background-color: var(--color-white);
+                color: var(--color-#{$color-name}-shade);
+                border: 1px solid var(--color-#{$color-name}-shade);
+            }
+            &.btn-filled {
+                background-color: var(--color-#{$color-name});
+                color:  var(--color-#{$color-name}-contrast);
+                border: 1px solid var(--color-#{$color-name});
+            }
+        }
+    }
+}

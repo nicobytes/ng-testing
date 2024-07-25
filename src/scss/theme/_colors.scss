@@ -1,0 +1,64 @@
+$white:           #f4f5f8;
+$black:           #222428;
+
+$primary:         (h:225deg, s: 85%);
+$secondary:       (h:256deg, s: 85%);
+$warning:         (h:36deg,  s: 100%);
+
+$color-gray-900: #3d404d;
+
+$color-yellow-shade: hsl(25 99% 37%);
+$color-yellow-base:  hsl(36 100% 63%);
+$color-yellow-tint:  hsl(36 100% 96%);
+
+$color-red-shade: hsl(359 69% 51%);
+$color-red-base:  hsl(5 91% 62%);
+$color-red-tint:  hsl(0 100% 98%);
+
+$color-green-shade: hsl(159 81% 23%);
+$color-green-base:  hsl(143 67% 55%);
+$color-green-tint:  hsl(143 67% 98%);
+
+$colors:  (
+  primary: (
+    shade:            (color: get-hsl-color($primary, 48%), contrast: $white),
+    base:             (color: get-hsl-color($primary, 60%), contrast: $white),
+    tint:             (color: get-hsl-color($primary, 96%), contrast: $color-gray-900),
+  ),
+  secondary: (
+    shade:            (color: get-hsl-color($secondary, 42%), contrast: $white),
+    base:             (color: get-hsl-color($secondary, 60%), contrast: $white),
+    tint:             (color: get-hsl-color($secondary, 98%), contrast: $color-gray-900),
+  ),
+  warning: (
+    shade:            (color: $color-yellow-shade, contrast: $white),
+    base:             (color: $color-yellow-base, contrast: $color-gray-900),
+    tint:             (color: $color-yellow-tint, contrast: $color-yellow-shade),
+  ),
+  danger: (
+    shade:            (color: $color-red-shade, contrast: $white),
+    base:             (color: $color-red-base, contrast: $color-gray-900),
+    tint:             (color: $color-red-tint, contrast: $color-red-shade),
+  ),
+);
+
+
+
+$color-palette-yellow-op-08: hsla(36, 100%, 63%, .8);
+$color-palette-yellow-op-10: hsla(36, 100%, 63%, .1);
+$color-palette-yellow-op-15: hsla(36, 100%, 63%, .15);
+$color-palette-yellow-op-20: hsla(36, 100%, 63%, .2);
+
+$color-blue-900:  hsl(226 85% 21%);
+$color-blue-800:  hsl(226 85% 27%);
+$color-blue-700:  hsl(226 85% 36%);
+$color-blue-600:  hsl(226 85% 48%);
+$color-blue-500:  hsl(226 85% 68%);
+$color-blue-400:  hsl(226 85% 78%);
+$color-blue-300:  hsl(226 85% 90%);
+$color-blue-300:  hsl(226 85% 96%);
+$color-blue-200:  hsl(226 85% 98%);
+
+$color-warning-shade: $color-blue-600;
+$color-warning-base:  $color-blue-500;
+$color-warning-tint:  $color-blue-200;

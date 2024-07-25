@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@use "sass:map";
+@import './scss/core.scss';
+
+:root {
+    --color-white: $white;
+
+    @each $color-name, $value in $colors {
+        --color-#{$color-name}: #{map.get($value, base, color)};
+        --color-#{$color-name}-contrast: #{map.get($value, base, contrast)};
+
+        --color-#{$color-name}-shade: #{map.get($value, shade, color)};
+        --color-#{$color-name}-shade-contrast: #{map.get($value, shade, contrast)};
+
+        --color-#{$color-name}-tint: #{map.get($value, tint, color)};
+        --color-#{$color-name}-tint-contrast: #{map.get($value, tint, contrast)};
+    }
+}

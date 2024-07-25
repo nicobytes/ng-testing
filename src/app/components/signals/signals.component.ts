@@ -31,6 +31,8 @@ export class SignalsComponent implements OnInit {
   $input = input.required({ alias: 'id' });
   $lastname = input('', { alias: 'lastname' });
   $value = computed(() => this.$input());
+  $showChild = signal(false);
+  $number = signal(0);
 
   constructor() {
     effect(() => {
@@ -43,6 +45,14 @@ export class SignalsComponent implements OnInit {
     this.#dataService.isInstalled().subscribe((value) => {
       this.$manual.set(value);
     });
+  }
+
+  toggleChild() {
+    this.$showChild.update((value) => !value);
+  }
+
+  increment() {
+    this.$number.update((value) => value + 1);
   }
 
 
