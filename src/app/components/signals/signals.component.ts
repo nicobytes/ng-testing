@@ -5,6 +5,7 @@ import {
   effect,
   inject,
   input,
+  output,
   signal,
 } from '@angular/core';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -17,7 +18,25 @@ import { ChildComponent } from './child.component';
   standalone: true,
   imports: [FormsModule, ChildComponent],
   providers: [DataService],
-  templateUrl: './signals.component.html',
+  template: `
+    <main class="container">
+    <p>signals works!</p>
+    <p>{{ $isInstalled() }}</p>
+    <p>{{ $isLoading() }}</p>
+    <p>
+      <input type="text" [(ngModel)]="$text">
+    </p>
+    <button type="button" data-testid="btn-emit" (click)="emit()">emit</button>
+    <input type="checkbox" data-testid="checkbox" [checked]="$isInstalled()" />
+    <button type="button" (click)="toggleChild()">show</button>
+    <button type="button" (click)="increment()">increment</button>
+    <p>{{ $number() }}</p>
+    @if ($showChild()) {
+        <app-child [number]="$number()" [(value)]="$text" [categories]="[]"/>  
+    }
+</main>
+
+  `
 })
 export class SignalsComponent implements OnInit {
   control = new FormControl();
@@ -28,16 +47,20 @@ export class SignalsComponent implements OnInit {
 
   $manual = signal(true);
   $text = signal('texto');
-  $input = input.required({ alias: 'id' });
+
+  $status = input.required({ alias: 'status' });
+  $isLoading = computed(() => this.$status() === 'loading');
+
+  onEvent = output<string>();
+
   $lastname = input('', { alias: 'lastname' });
-  $value = computed(() => this.$input());
   $showChild = signal(false);
   $number = signal(0);
 
   constructor() {
     effect(() => {
       const text = this.$text();
-      console.log(text);
+      console.log('Text:', text);
     });
   }
 
@@ -53,6 +76,10 @@ export class SignalsComponent implements OnInit {
 
   increment() {
     this.$number.update((value) => value + 1);
+  }
+
+  emit() {
+    this.onEvent.emit('event');
   }
 
 

@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SignalsComponent } from './components/signals/signals.component';
 import { ButtonComponent } from './components/button/button.component';
+import { TodosComponent } from './components/store/todos.component';
 
 export const routes: Routes = [
   {
@@ -16,5 +17,9 @@ export const routes: Routes = [
   {
     path: 'button',
     component: ButtonComponent,
+  },
+  {
+    path: 'todos',
+    component: TodosComponent,
   },
 ];

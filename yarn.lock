@@ -2083,6 +2083,13 @@
     replace-in-file "6.2.0"
     tslib "^2.6.2"
 
+"@ngrx/signals@^18.0.0":
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/signals/-/signals-18.0.0.tgz#2fe1bb0fdff493b79db73d9e4a71a8f611449074"
+  integrity sha512-zAWlsRqBbP/JsLmXHupfRb/BD5Xe2I03hLIB+q+vmXwAf29KCwRMVPLpWWu0DEgJvM0dVklP9WIgcG/D1pKScg==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngtools/webpack@18.1.0":
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-18.1.0.tgz#52c5b879a200be91e19b3bb823c603102e12e256"

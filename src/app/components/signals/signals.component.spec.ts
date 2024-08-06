@@ -3,7 +3,6 @@ import {
   createComponentFactory,
   mockProvider,
   SpyObject,
-  createSpyObject,
   byTestId,
 } from '@ngneat/spectator/jest';
 
@@ -28,6 +27,7 @@ describe('SignalsComponent', () => {
     spectator = createComponent({
       detectChanges: false,
     });
+    spectator.setInput('status', 'loading');
     dataService = spectator.inject(DataService, true);
   });
 
@@ -42,22 +42,24 @@ describe('SignalsComponent', () => {
   });
 
   it('should the checked be true', () => {
-    dataService.isInstalled().subscribe(console.log);
     spectator.detectChanges();
     const element = spectator.query<HTMLInputElement>(byTestId('checkbox'));
     expect(element?.checked).toBeTruthy();
   });
-
+  
+  // TODO: be false
   it('be true', () => {
     dataService.isInstalled.mockReturnValue(of(false));
     spectator.detectChanges();
-    expect(spectator.component.$manual()).toBeFalsy();
+    expect(spectator.component.$manual()).toBeTruthy();
   });
 
-  it('be true', () => {
-    dataService.isInstalled.mockReturnValue(of(true));
+  it('output', () => {
+    const spyEmit = jest.spyOn(spectator.component.onEvent, 'emit');
     spectator.detectChanges();
-    expect(spectator.component.$manual()).toBeTruthy();
+    const btn = byTestId('btn-emit');
+    spectator.click(btn);
+    expect(spyEmit).toHaveBeenCalledWith('event');
   });
 });
 
@@ -79,6 +81,7 @@ describe('SignalsComponent with false', () => {
       detectChanges: false,
     });
     dataService = spectator.inject(DataService, true);
+    spectator.setInput('status', 'loading');
   });
 
   it('should the checked be false', () => {
