@@ -7,15 +7,16 @@ export class TokenService {
   constructor() {}
 
   saveToken(token: string) {
-    localStorage.setItem('token', token);
+    //localStorage.setItem('token', token);
   }
 
   getToken() {
-    const token = localStorage.getItem('token');
-    return token;
+    //const token = localStorage.getItem('token');
+    //return token;
+    return '';
   }
 
   removeToken() {
-    localStorage.removeItem('token');
+    //localStorage.removeItem('token');
   }
 }

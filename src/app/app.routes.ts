@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SignalsComponent } from './components/signals/signals.component';
 import { ButtonComponent } from './components/button/button.component';
 import { TodosComponent } from './components/store/todos.component';
+import { ParentComponent } from './components/inputs/parent.component';
 
 export const routes: Routes = [
   {
@@ -21,5 +22,9 @@ export const routes: Routes = [
   {
     path: 'todos',
     component: TodosComponent,
+  },
+  {
+    path: 'inputs',
+    component: ParentComponent,
   },
 ];
