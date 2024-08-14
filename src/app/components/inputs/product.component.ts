@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { Product } from '@models/product.model';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   imports: [],
-  template: '',
+  template: '<h1>{{ product().title }}</h1>',
 })
 export class ProductComponent {
 
-  @Input() product!: Product;
+  product = input.required<Product>();
 
 }

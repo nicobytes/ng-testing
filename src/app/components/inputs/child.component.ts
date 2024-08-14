@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, input, effect, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { Product } from '@models/product.model';
 
@@ -9,39 +9,39 @@ import { Product } from '@models/product.model';
   template: `
    <article>
       <h1>Child Component</h1>
-      <p>{{ firstName }}</p>
-      <p>{{ age }}</p>
-      <p>Products: {{ products.length }}</p>
-      <p>{{ products | json }}</p>
+      <p>{{ firstName() }}</p>
+      <p>Age: {{ age() }}</p>
+      <p>Double Age: {{ doubleAge() }}</p>
+      <p>Products: {{ products().length }}</p>
     </article>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChildComponent implements OnChanges {
+export class ChildComponent {
 
-  @Input() firstName = 'Nicolas';
-  @Input() age = 0;
-  @Input() products: Product[] = [];
+  firstName = input('Nicolas');
+  age = input.required<number>();
+  products = input.required<Product[]>();
+  doubleAge = computed(() => this.age() * 2);
 
-   /*
-  _products: Product[] = [];
-  @Input()
-  set products(products: Product[]) {
-    console.log('Setting products:', products);
-    this._products = products;
-  }
-  */
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['age']) {
+  constructor() {
+    effect(() => {
+      const age = this.age();
       this.runAgeLogic();
-    }
-    if (changes['products']) {
-      this.runProductLogic();
-    }
+    })
+    effect(() => {
+      const fistName = this.firstName();
+      console.log('First Name:', fistName);
+    })
+    effect(() => {
+      const products = this.products();
+      console.log('Products:', products);
+    })
   }
 
   runAgeLogic(): void {
-    console.log('Age:', this.age);
+    // fetch
+    console.log('Age:', this.age());
   }
 
   runProductLogic(): void {

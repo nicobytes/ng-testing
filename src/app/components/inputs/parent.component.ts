@@ -1,14 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Product } from '@models/product.model';
 import { ChildComponent } from './child.component';
+import { ProductComponent } from './product.component';
 import { ProductsService } from '@services/product.service';
 
 @Component({
   selector: 'app-parent',
   standalone: true,
-  imports: [ChildComponent, FormsModule],
+  imports: [ChildComponent, FormsModule, ProductComponent],
   template: `
     <div class="container">
       <article>
@@ -16,29 +17,33 @@ import { ProductsService } from '@services/product.service';
         <input type="text" [(ngModel)]="firstName" />
         <input type="number" [(ngModel)]="age" />
         <button type="button" (click)="addProduct()">Add Product</button>
-        <p>Products: {{ products.length }}</p>
+        <p>Products: {{ products().length }}</p>
       </article>
       <hr />
-      <app-child [firstName]="firstName" [age]="age" [products]="products" />
+      <app-child [firstName]="firstName()" [age]="age()" [products]="products()" />
+      @for(product of products(); track product.id){
+        <app-product [product]="product" />
+      }
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParentComponent implements OnInit {
 
-  firstName = 'Nicolas';
-  age = 0;
-  products: Product[] = [];
+  firstName = signal('Nicolas');
+  age = signal(0)
+  products = signal<Product[]>([]);
 
   productsService = inject(ProductsService);
 
   ngOnInit(): void {
     this.productsService.getAll().subscribe((products) => {
-      this.products = products;
+      this.products.set(products);
     });
   }
 
   addProduct(): void {
-    this.products.push({
+    const newProduct = {
       id: '3',
       title: 'Product 3',
       price: 300,
@@ -48,6 +53,7 @@ export class ParentComponent implements OnInit {
         id: '3',
         name: 'Category 3',
       }
-    });
+    };
+    this.products.update((products) => [...products, newProduct]);
   }
 }
