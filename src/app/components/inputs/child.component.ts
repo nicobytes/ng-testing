@@ -11,8 +11,8 @@ import { Product } from '@models/product.model';
       <h1>Child Component</h1>
       <p>{{ firstName }}</p>
       <p>{{ age }}</p>
-      <p>Products: {{ _products.length }}</p>
-      <p>{{ _products | json }}</p>
+      <p>Products: {{ products.length }}</p>
+      <p>{{ products | json }}</p>
     </article>
   `
 })
@@ -20,16 +20,16 @@ export class ChildComponent implements OnChanges {
 
   @Input() firstName = 'Nicolas';
   @Input() age = 0;
-  // @Input() products: Product[] = [];
+  @Input() products: Product[] = [];
 
-  
+   /*
   _products: Product[] = [];
   @Input()
   set products(products: Product[]) {
     console.log('Setting products:', products);
     this._products = products;
   }
-  
+  */
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['age']) {
