@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Product } from '@models/product.model';
@@ -17,33 +17,37 @@ import { ProductsService } from '@services/product.service';
         <input type="text" [(ngModel)]="firstName" />
         <input type="number" [(ngModel)]="age" />
         <button type="button" (click)="addProduct()">Add Product</button>
-        <p>Products: {{ products().length }}</p>
+        <p>Products: {{ products.length }}</p>
       </article>
       <hr />
-      <app-child [firstName]="firstName()" [age]="age()" [products]="products()" />
-      @for(product of products(); track product.id){
-        <app-product [product]="product" />
-      }
+      <app-child [firstName]="firstName" [age]="age" [products]="products" />
+      <hr />
+      <h1>Products</h1>
+      <div class="grid">
+        @for(product of products; track product.id) {
+          <app-product [product]="product" />
+        }
+      </div>
+
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParentComponent implements OnInit {
 
-  firstName = signal('Nicolas');
-  age = signal(0)
-  products = signal<Product[]>([]);
+  firstName = 'Nicolas';
+  age = 0;
+  products: Product[] = [];
 
   productsService = inject(ProductsService);
 
   ngOnInit(): void {
     this.productsService.getAll().subscribe((products) => {
-      this.products.set(products);
+      this.products = products;
     });
   }
 
   addProduct(): void {
-    const newProduct = {
+    this.products.push({
       id: '3',
       title: 'Product 3',
       price: 300,
@@ -53,7 +57,6 @@ export class ParentComponent implements OnInit {
         id: '3',
         name: 'Category 3',
       }
-    };
-    this.products.update((products) => [...products, newProduct]);
+    });
   }
 }
