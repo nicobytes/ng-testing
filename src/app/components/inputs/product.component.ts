@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { NgOptimizedImage, CurrencyPipe } from '@angular/common';
 import { Product } from '@models/product.model';
 
@@ -6,15 +6,17 @@ import { Product } from '@models/product.model';
   selector: 'app-product',
   standalone: true,
   imports: [NgOptimizedImage, CurrencyPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template:  `
   <article>
-    <h4>{{ product.title }}</h4>
-    <img width="200" height="200" [src]="product.images[0]" [alt]="product.title">
-    <p>{{ product.price | currency }}</p>
+    @let data = product();
+    <h4>{{ data.title }}</h4>
+    <img width="200" height="200" [src]="data.images[0]" [alt]="data.title">
+    <p>{{ data.price | currency }}</p>
   </article>`,
 })
 export class ProductComponent {
 
-  @Input() product!: Product;
+  product = input.required<Product>();
 
 }
